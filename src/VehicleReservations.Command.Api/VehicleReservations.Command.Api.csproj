@@ -3,15 +3,26 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>7fe3d460-c271-40f3-a64d-24d109bd5397</UserSecretsId>
+    <CodeAnalysisRuleSet>..\.ruleset</CodeAnalysisRuleSet>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="5.0.3" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
       <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleReservations.Command.ApplicationServices\VehicleReservations.Command.ApplicationServices.csproj" />
+    <ProjectReference Include="..\VehicleReservations.Command.Infrastructure.CrossCutting.Ioc\VehicleReservations.Command.Infrastructure.CrossCutting.Ioc.csproj" />
   </ItemGroup>
     
 </Project>

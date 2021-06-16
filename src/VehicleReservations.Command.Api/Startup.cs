@@ -1,9 +1,14 @@
+using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using VehicleReservations.Command.Api.Extensions;
+using VehicleReservations.Command.Infrastructure.CrossCutting.Ioc.DependencyInjection;
 
 namespace OutboxPattern.Api
 {
@@ -14,35 +19,42 @@ namespace OutboxPattern.Api
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "VehicleBooking.Command.Api", Version = "v1" });
-            });
-        }
+        public void ConfigureServices(IServiceCollection services) =>
+            services
+                .AddApi()
+                .AddIoc(Configuration)
+                .AddHealthChecks()
+                    .AddSqlServer(
+                        connectionString: Configuration["DatabaseSettings:ConnectionString"],
+                        healthQuery: "SELECT 1",
+                        failureStatus: HealthStatus.Unhealthy,
+                        timeout: TimeSpan.FromMilliseconds(10));
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "VehicleBooking.Command.Api v1"));
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app
+                .ConfigureSwagger(Configuration)
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapHealthChecks("/healthcheck", new HealthCheckOptions
+                    {
+                        ResultStatusCodes =
+                        {
+                            [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                            [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                            [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+                        },
+                    });
+                })
+                .UseResponseCompression();
         }
     }
 }

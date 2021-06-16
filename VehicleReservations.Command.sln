@@ -23,10 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.Infrastructure.Data.Test", "test\VehicleReservations.Command.Infrastructure.Data.Test\VehicleReservations.Command.Infrastructure.Data.Test.csproj", "{D4A4717A-78DB-454F-9A4E-D1087B6F386C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.Infrastructure.Broker", "src\VehicleReservations.Command.Infrastructure.Broker\VehicleReservations.Command.Infrastructure.Broker.csproj", "{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.Infrastructure.Broker.Test", "test\VehicleReservations.Command.Infrastructure.Broker.Test\VehicleReservations.Command.Infrastructure.Broker.Test.csproj", "{F23662A1-CCBD-447F-A16E-D6777287758A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - Cross Cutting", "4.1 - Cross Cutting", "{E0AFE4D1-157B-46F5-B224-2F79D5647DCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.Infrastructure.CrossCutting.Logger", "src\VehicleReservations.Command.Infrastructure.CrossCutting.Logger\VehicleReservations.Command.Infrastructure.CrossCutting.Logger.csproj", "{507C594B-A0CA-4B68-A083-1CF6B973D0A5}"
@@ -48,6 +44,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.FunctionalTest", "test\VehicleReservations.Command.FunctionalTest\VehicleReservations.Command.FunctionalTest.csproj", "{BBF236E6-5081-4F2C-BD62-8398F2E5FAD5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleReservations.Command.AcceptanceTest", "test\VehicleReservations.Command.AcceptanceTest\VehicleReservations.Command.AcceptanceTest.csproj", "{D527A29F-CA8F-462E-870B-1135EB881A14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A03063E4-49B3-4FE2-AAEA-06BA969EECE0}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Dockerfile = Dockerfile
+		nuget.config = nuget.config
+		stylecop.json = stylecop.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,14 +86,6 @@ Global
 		{D4A4717A-78DB-454F-9A4E-D1087B6F386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A4717A-78DB-454F-9A4E-D1087B6F386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A4717A-78DB-454F-9A4E-D1087B6F386C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F23662A1-CCBD-447F-A16E-D6777287758A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F23662A1-CCBD-447F-A16E-D6777287758A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F23662A1-CCBD-447F-A16E-D6777287758A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F23662A1-CCBD-447F-A16E-D6777287758A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{507C594B-A0CA-4B68-A083-1CF6B973D0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{507C594B-A0CA-4B68-A083-1CF6B973D0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{507C594B-A0CA-4B68-A083-1CF6B973D0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -134,8 +133,6 @@ Global
 		{E9298EFE-F219-4750-B3E7-F9268F60DFCE} = {F27BB679-5A44-44E5-9973-3B83564B16DB}
 		{186529D9-1849-4290-B049-7F1F020FFBB5} = {390955C0-63EB-4F94-9FDB-67DAEF2DC7CE}
 		{D4A4717A-78DB-454F-9A4E-D1087B6F386C} = {390955C0-63EB-4F94-9FDB-67DAEF2DC7CE}
-		{91C7B4BF-3CA1-4FF9-9231-15D755AAAE11} = {390955C0-63EB-4F94-9FDB-67DAEF2DC7CE}
-		{F23662A1-CCBD-447F-A16E-D6777287758A} = {390955C0-63EB-4F94-9FDB-67DAEF2DC7CE}
 		{E0AFE4D1-157B-46F5-B224-2F79D5647DCC} = {390955C0-63EB-4F94-9FDB-67DAEF2DC7CE}
 		{507C594B-A0CA-4B68-A083-1CF6B973D0A5} = {E0AFE4D1-157B-46F5-B224-2F79D5647DCC}
 		{4078E7F4-2A33-4B37-BBA5-925454BAA33A} = {E0AFE4D1-157B-46F5-B224-2F79D5647DCC}

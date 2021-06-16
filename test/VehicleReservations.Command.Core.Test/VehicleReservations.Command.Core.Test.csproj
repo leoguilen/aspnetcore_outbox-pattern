@@ -23,4 +23,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VehicleReservations.Command.Core\VehicleReservations.Command.Core.csproj" />
+  </ItemGroup>
+
 </Project>
