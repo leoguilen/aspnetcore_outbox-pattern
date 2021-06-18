@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  vehicle-reservations.command-api:
+    build: ../components/vehicle-reservations.command-api/
+    container_name: vehicle-reservations.command-api
+    hostname: vehicle-reservations.command-api
+    restart: always
+    environment:
+      - Database:ConnectionString=Data Source=mssql19;Initial Catalog=Reservations;Integrated Security=False;User ID=sa;Password=srvSql21#;
+      - Database:ProviderName=SqlServer
+    ports:
+      - "5001:8080"
+    depends_on:
+      - mssql19
+    networks:
+      - reservation-net
+
+  outbox-message.itg-publisher:
+    build: ../components/outbox-message.itg-publisher/
+    container_name: outbox-message.itg-publisher
+    hostname: outbox-message.itg-publisher
+    restart: always
+    environment:
+        - Database:ConnectionString=Data Source=mssql19;Initial Catalog=Reservations;Integrated Security=False;User ID=sa;Password=srvSql21#;
+        - Database:ProviderName=SqlServer
+        - Rabbit:HostName=rabbitmq
+        - Rabbit:Port=5672
+        - Rabbit:UserName=guest
+        - Rabbit:Password=guest
+        - Rabbit:VirtualHost=/
+        - Rabbit:QueueName=reservations-queue
+    ports:
+      - "6001:8080"
+    depends_on:
+      - mssql19
+      - rabbitmq
+    networks:
+      - reservation-net
+
+  mssql19:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql19
+    hostname: mssql19
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=srvSql21#
+      - MSSQL_TCP_PORT=1433
+    ports:
+      - "1433:1433"
+    volumes:
+      - type: volume
+        source: mssql-data
+        target: /var/opt/mssql
+    networks:
+      - reservation-net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - CLUSTERED=true
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - type: volume
+        source: rabbit-data
+        target: /var/lib/rabbitmq
+    networks:
+      - reservation-net
+
+volumes:
+  mssql-data:
+    name: mssql-data
+    driver: local
+  rabbit-data:
+    name: rabbit-data
+    driver: local
+  
+networks:
+  reservation-net:
+    name: reservation-net
+    driver: bridge
