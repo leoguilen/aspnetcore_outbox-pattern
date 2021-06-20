@@ -20,8 +20,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS runtime
 WORKDIR /out
 COPY --from=dotnet_publish /out .
 
+RUN apk add --no-cache icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
 
 ENTRYPOINT ["dotnet", "OutboxMessage.Itg.Publisher.dll"]
