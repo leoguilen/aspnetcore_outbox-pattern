@@ -38,6 +38,28 @@ services:
     networks:
       - reservation-net
 
+  outbox-message.itg-consumer:
+    build: ../components/outbox-message.itg-consumer/
+    container_name: outbox-message.itg-consumer
+    hostname: outbox-message.itg-consumer
+    restart: always
+    environment:
+        - Database:ConnectionString=Data Source=mssql19;Initial Catalog=Reservations;Integrated Security=False;User ID=sa;Password=srvSql21#;
+        - Database:ProviderName=SqlServer
+        - Rabbit:HostName=rabbitmq
+        - Rabbit:Port=5672
+        - Rabbit:UserName=guest
+        - Rabbit:Password=guest
+        - Rabbit:VirtualHost=/
+        - Rabbit:QueueName=reservations-queue
+        - MongoDb:ConnectionString=mongodb://mongodb/RESERVATIONS_DB
+    depends_on:
+      - mssql19
+      - rabbitmq
+      - mongodb
+    networks:
+      - reservation-net
+
   mssql19:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql19
@@ -74,12 +96,29 @@ services:
     networks:
       - reservation-net
 
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - type: volume
+        source: mongodb-data
+        target: /data/db
+    networks:
+      - reservation-net
+
 volumes:
   mssql-data:
     name: mssql-data
     driver: local
   rabbit-data:
     name: rabbit-data
+    driver: local
+  mongodb-data:
+    name: mongodb-data
     driver: local
   
 networks:

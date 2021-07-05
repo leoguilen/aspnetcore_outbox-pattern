@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OutboxMessage.Itg.Core.Services\OutboxMessage.Itg.Core.Services.csproj" />
+    <ProjectReference Include="..\OutboxMessage.Itg.Core\OutboxMessage.Itg.Core.csproj" />
+    <ProjectReference Include="..\OutboxMessage.Itg.Infra.Broker\OutboxMessage.Itg.Infra.Broker.csproj" />
+    <ProjectReference Include="..\OutboxMessage.Itg.Infra.CrossCutting.Logger\OutboxMessage.Itg.Infra.CrossCutting.Logger.csproj" />
+    <ProjectReference Include="..\OutboxMessage.Itg.Infra.Data.Mongo\OutboxMessage.Itg.Infra.Data.Mongo.csproj" />
+    <ProjectReference Include="..\OutboxMessage.Itg.Infra.Data.SqlServer\OutboxMessage.Itg.Infra.Data.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
